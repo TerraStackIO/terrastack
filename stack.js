@@ -17,7 +17,7 @@ class Stack {
   async init() {
     const terraStackDir = path.join(process.cwd(), ".terrastack", this.name);
     for await (const element of this.elements) {
-      await run("init", path.join(terraStackDir, element.id), {
+      await run("init -force-copy", path.join(terraStackDir, element.id), {
         name: element.id
       });
     }
@@ -26,9 +26,25 @@ class Stack {
   async plan() {
     const terraStackDir = path.join(process.cwd(), ".terrastack", this.name);
     for await (const element of this.elements) {
-      run("plan -lock=false", path.join(terraStackDir, element.id), {
+      await run("plan -lock=false", path.join(terraStackDir, element.id), {
         name: element.id
       });
+    }
+  }
+
+  async apply() {
+    const terraStackDir = path.join(process.cwd(), ".terrastack", this.name);
+    for await (const element of this.elements) {
+      await run(
+        "apply -auto-approve -input=false",
+        path.join(terraStackDir, element.id),
+        {
+          name: element.id,
+          env: {
+            TF_IN_AUTOMATION: 1
+          }
+        }
+      );
     }
   }
 

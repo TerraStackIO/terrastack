@@ -1,0 +1,12 @@
+{
+  "name": "terrastack-example-remote-state",
+  "version": "1.0.0",
+  "description": "A simple example to demonstrate the usage of Terrastack to bootstrap an AWS S3 backend",
+  "main": "stack.js",
+  "author": "Sebastian Korfmann",
+  "license": "MPL-2.0",
+  "private": false,
+  "dependencies": {
+    "terrastack": "file:../../"
+  }
+}
