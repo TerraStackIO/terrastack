@@ -10,6 +10,8 @@ class Stack {
     this.name = name;
     this.config = config;
     this.components = [];
+    this.executionOrder = [];
+    this.terraStackDir = path.join(process.cwd(), ".terrastack", name);
   }
 
   add(...component) {
@@ -50,11 +52,10 @@ class Stack {
   }
 
   async destroy() {
-    const terraStackDir = path.join(process.cwd(), ".terrastack", this.name);
     for await (const component of this.components) {
       await run(
         "destroy -auto-approve",
-        path.join(terraStackDir, component.name),
+        path.join(this.terraStackDir, component.name),
         {
           name: component.name,
           env: {
@@ -66,31 +67,25 @@ class Stack {
   }
 
   resolve() {
-    this.executionOrder = [];
     let availableComponents = this.components.slice(0);
+
     while (availableComponents.length > 0) {
       let countBefore = availableComponents.length;
+
       availableComponents = availableComponents.filter(component => {
-        if (_.isEmpty(component.bindings)) {
+        if (
+          _.isEmpty(component.bindings) ||
+          this._allBindingsAlreadyConsumed(component)
+        ) {
           this.executionOrder.push(component);
           return false;
         } else {
-          if (
-            Object.values(component.bindings).every(binding => {
-              if (this.executionOrder.includes(binding)) {
-                return true;
-              } else {
-                return false;
-              }
-            })
-          ) {
-            this.executionOrder.push(component);
-            return false;
-          } else {
-            return true;
-          }
+          return true;
         }
       });
+
+      // We expect the availableComponents array to change after each loop at least by one element.
+      // So, if there was no change, some dependencies are circular or missing in the stack.
       if (availableComponents.length == countBefore) {
         throw "Circular or missing dependencies detected!";
       }
@@ -98,22 +93,22 @@ class Stack {
   }
 
   async compile(component) {
-    const terraStackDir = path.join(process.cwd(), ".terrastack", this.name);
-    fs.ensureDirSync(terraStackDir);
+    fs.ensureDirSync(this.terraStackDir);
 
-    const workingDir = path.join(terraStackDir, component.name);
-    fs.ensureDirSync(workingDir);
+    const componentDir = path.join(this.terraStackDir, component.name);
+
+    fs.ensureDirSync(componentDir);
     fs.writeFileSync(
-      path.join(workingDir, "terrastack.tf"),
+      path.join(componentDir, "terrastack.tf"),
       JSON.stringify(this._compileConfig(component.name), null, 2)
     );
 
     fs.writeFileSync(
-      path.join(workingDir, "terrastack.auto.tfvars"),
+      path.join(componentDir, "terrastack.auto.tfvars"),
       JSON.stringify(component.optionsCallback(component.bindings), null, 2)
     );
 
-    await recursiveCopy(component.sourceDir, workingDir, {
+    await recursiveCopy(component.sourceDir, componentDir, {
       filter: ["**/*", "!.terrastack"],
       overwrite: true
     })
@@ -124,7 +119,7 @@ class Stack {
         console.error("Copy failed: " + error);
       });
 
-    return workingDir;
+    return componentDir;
   }
 
   _compileConfig(componentId) {
@@ -133,6 +128,16 @@ class Stack {
     );
 
     return Object.assign({}, ...data);
+  }
+
+  _allBindingsAlreadyConsumed(component) {
+    return Object.values(component.bindings).every(binding => {
+      if (this.executionOrder.includes(binding)) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   }
 }
 

@@ -1,16 +1,5 @@
 const { spawn } = require("child_process");
-const { createLogger, format, transports } = require("winston");
-const { combine, timestamp, label, printf } = format;
-
-const taggedFormat = printf(info => {
-  return `[${info.label}]: ${info.message.trim().replace(/\n/g, "\n        ")}`;
-});
-
-const logger = createLogger({
-  level: "info",
-  format: combine(taggedFormat),
-  transports: [new transports.Console()]
-});
+const logger = require("./logger");
 
 function run(cmd, workDir, options = {}) {
   const { name } = options;
@@ -20,11 +9,7 @@ function run(cmd, workDir, options = {}) {
       logger.log({ label: name, level: "info", message: output.toString() });
     },
     stderr: output => {
-      logger.log({
-        label: name,
-        level: "error",
-        message: output.toString()
-      });
+      logger.log({ label: name, level: "error", message: output.toString() });
     }
   };
 
