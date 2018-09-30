@@ -1,9 +1,9 @@
 const path = require("path");
 const fs = require("fs-extra");
 const recursiveCopy = require("recursive-copy");
-const { run } = require("./run");
 const _ = require("lodash");
 const { spawnSync } = require("child_process");
+const { Terraform } = require("./terraform");
 
 class Stack {
   constructor(name, config) {
@@ -23,24 +23,75 @@ class Stack {
   }
 
   async plan() {
-    // TBD
+    this.resolve();
+
+    for (const component of this.executionOrder) {
+      const callbacks = {
+        start: () => {
+          console.log(`${component.name} started`);
+        },
+        success: () => {
+          console.log(`${component.name} success`);
+        },
+        failed: () => {
+          console.log(`${component.name} failed`);
+        }
+      };
+      const workingDir = await this._compile(component);
+      const terraform = new Terraform(workingDir);
+
+      await terraform.init(callbacks);
+
+      await terraform.plan(
+        Object.assign(callbacks, {
+          success: changed => {
+            if (changed)
+              throw `${
+                component.name
+              } changed. Cannot proceed planing. Apply first.`;
+          }
+        })
+      );
+
+      await terraform.output(
+        Object.assign(callbacks, {
+          success: output => {
+            component.outputs = this._unwrapOutputs(output);
+          }
+        })
+      );
+    }
   }
 
   async apply() {
     this.resolve();
 
     for (const component of this.executionOrder) {
-      const workingDir = await this.compile(component);
-      await this.init(component, workingDir);
-      await run("apply -auto-approve -input=false", workingDir, {
-        name: component.name,
-        env: {
-          TF_IN_AUTOMATION: 1
+      const callbacks = {
+        start: () => {
+          console.log(`${component.name} started`);
+        },
+        success: () => {
+          console.log(`${component.name} success`);
+        },
+        failed: () => {
+          console.log(`${component.name} failed`);
         }
-      });
+      };
+      const workingDir = await this._compile(component);
+      const terraform = new Terraform(workingDir);
 
-      const output = await this.refresh(workingDir);
-      component.outputs = output;
+      await terraform.init(callbacks);
+
+      await terraform.apply(callbacks);
+
+      await terraform.output(
+        Object.assign(callbacks, {
+          success: output => {
+            component.outputs = this._unwrapOutputs(output);
+          }
+        })
+      );
     }
   }
 
@@ -57,24 +108,24 @@ class Stack {
   async destroy() {
     this.resolve();
 
-    for (const component of this.executionOrder) {
-      const workingDir = await this.compile(component);
-      await this.init(component, workingDir);
-      const output = await this.refresh(workingDir);
-      component.outputs = output;
-    }
-
     for (const component of this.executionOrder.reverse()) {
-      await run(
-        "destroy -auto-approve",
-        path.join(this.terraStackDir, component.name),
-        {
-          name: component.name,
-          env: {
-            TF_IN_AUTOMATION: 1
-          }
+      const callbacks = {
+        start: () => {
+          console.log(`${component.name} started`);
+        },
+        success: () => {
+          console.log(`${component.name} success`);
+        },
+        failed: () => {
+          console.log(`${component.name} failed`);
         }
-      );
+      };
+      const workingDir = await this._compile(component, true);
+      const terraform = new Terraform(workingDir);
+
+      await terraform.init(callbacks);
+
+      await terraform.destroy(callbacks);
     }
   }
 
@@ -104,7 +155,7 @@ class Stack {
     }
   }
 
-  async compile(component) {
+  async _compile(component, skipConfiguration = false) {
     fs.ensureDirSync(this.terraStackDir);
 
     const componentDir = path.join(this.terraStackDir, component.name);
@@ -115,10 +166,12 @@ class Stack {
       JSON.stringify(this._compileConfig(component.name), null, 2)
     );
 
-    fs.writeFileSync(
-      path.join(componentDir, "terrastack.auto.tfvars"),
-      JSON.stringify(component.optionsCallback(component.bindings), null, 2)
-    );
+    if (!skipConfiguration) {
+      fs.writeFileSync(
+        path.join(componentDir, "terrastack.auto.tfvars"),
+        JSON.stringify(component.optionsCallback(component.bindings), null, 2)
+      );
+    }
 
     await recursiveCopy(component.sourceDir, componentDir, {
       filter: ["**/*", "!.terrastack"],
@@ -150,6 +203,19 @@ class Stack {
         return false;
       }
     });
+  }
+
+  _unwrapOutputs(output) {
+    return Object.entries(output).reduce((hash, element) => {
+      const [key, value] = element;
+      /* value is an object with the following keys:
+       * sensitive: true/false
+       * type: list/string
+       * value: [...]/""
+       */
+      hash[key] = value["value"];
+      return hash;
+    }, {});
   }
 }
 

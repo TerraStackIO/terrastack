@@ -27,10 +27,8 @@ const ec2 = new EC2Instance(`ec2`, { network }, bindings => ({
   name: "complex-ec2",
   ami: "ami-0f5dbc86dd9cbf7a8",
   instance_type: "t3.micro",
-  subnet_id: bindings.network.outputs.public_subnets.value[0],
-  vpc_security_group_ids: [
-    bindings.network.outputs.default_security_group_id.value
-  ]
+  subnet_id: bindings.network.outputs.public_subnets[0],
+  vpc_security_group_ids: [bindings.network.outputs.default_security_group_id]
 }));
 
 const ec2instances = [];
@@ -41,9 +39,9 @@ for (const a of [1, 2, 3]) {
       name: "complex-ec2",
       ami: "ami-0f5dbc86dd9cbf7a8",
       instance_type: "t3.micro",
-      subnet_id: bindings.network.outputs.public_subnets.value[0],
+      subnet_id: bindings.network.outputs.public_subnets[0],
       vpc_security_group_ids: [
-        bindings.network.outputs.default_security_group_id.value
+        bindings.network.outputs.default_security_group_id
       ]
     }))
   );
@@ -59,7 +57,7 @@ const backend = new Backend({
 });
 
 const provider = new Provider({
-  provider: [{ aws: { region: process.env.AWS_DEFAULT_REGION } }]
+  provider: [{ aws: { region: "eu-central-1" } }]
 });
 
 const complexStack = new Stack("complex", { backend, provider });
