@@ -387,7 +387,7 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-"terrastack@file:../../":
+"terrastack@file:../..":
   version "0.1.0"
   dependencies:
     fs-extra "^7.0.0"
