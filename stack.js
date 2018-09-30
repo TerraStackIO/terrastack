@@ -39,20 +39,32 @@ class Stack {
         }
       });
 
-      const obj = spawnSync(`terraform output -json`, {
-        timeout: 0,
-        shell: "/bin/bash",
-        cwd: workingDir
-      });
-
-      const output = JSON.parse(obj.stdout);
-
+      const output = await this.refresh(workingDir);
       component.outputs = output;
     }
   }
 
+  async refresh(workingDir) {
+    const obj = spawnSync(`terraform output -json`, {
+      timeout: 0,
+      shell: "/bin/bash",
+      cwd: workingDir
+    });
+
+    return JSON.parse(obj.stdout);
+  }
+
   async destroy() {
-    for await (const component of this.components) {
+    this.resolve();
+
+    for (const component of this.executionOrder) {
+      const workingDir = await this.compile(component);
+      await this.init(component, workingDir);
+      const output = await this.refresh(workingDir);
+      component.outputs = output;
+    }
+
+    for (const component of this.executionOrder.reverse()) {
       await run(
         "destroy -auto-approve",
         path.join(this.terraStackDir, component.name),
