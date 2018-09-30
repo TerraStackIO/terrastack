@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@terrastack/terraform-aws-ec2-instance@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@terrastack/terraform-aws-ec2-instance/-/terraform-aws-ec2-instance-1.0.0.tgz#db15f6ca9cd2551eb0f9dcef7ccd773fd9aad291"
+
+"@terrastack/terraform-aws-vpc@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@terrastack/terraform-aws-vpc/-/terraform-aws-vpc-1.0.0.tgz#e4981349bc09e7c184e8e490e914d808e9d935fe"
+
 array-differ@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/array-differ/-/array-differ-1.0.0.tgz#eff52e3758249d33be402b8bb8e564bb2b5d4031"
@@ -386,6 +394,15 @@ string_decoder@~1.1.1:
   resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-1.1.1.tgz#9cf1611ba62685d7030ae9e4ba34149c3af03fc8"
   dependencies:
     safe-buffer "~5.1.0"
+
+"terrastack@file:../..":
+  version "0.1.0"
+  dependencies:
+    commander "^2.18.0"
+    fs-extra "^7.0.0"
+    lodash "^4.17.11"
+    recursive-copy "^2.0.9"
+    winston "^3.1.0"
 
 text-hex@1.0.x:
   version "1.0.0"

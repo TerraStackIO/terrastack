@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+
+var program = require("commander");
+
+program.command("plan").action(function(options) {
+  const stack = require(process.cwd() + "/stack.js");
+
+  (async () => {
+    await stack.plan();
+  })();
+});
+
+program.command("apply").action(function(options) {
+  const stack = require(process.cwd() + "/stack.js");
+
+  (async () => {
+    await stack.apply();
+  })();
+});
+
+program.command("destroy").action(function(options) {
+  const stack = require(process.cwd() + "/stack.js");
+
+  (async () => {
+    await stack.destroy();
+  })();
+});
+
+program.parse(process.argv);
