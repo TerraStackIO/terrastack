@@ -48,6 +48,18 @@ class Stack {
     }
   }
 
+  async destroy() {
+    const terraStackDir = path.join(process.cwd(), ".terrastack", this.name);
+    for await (const element of this.elements) {
+      await run("destroy -auto-approve", path.join(terraStackDir, element.id), {
+        name: element.id,
+        env: {
+          TF_IN_AUTOMATION: 1
+        }
+      });
+    }
+  }
+
   async compile() {
     const terraStackDir = path.join(process.cwd(), ".terrastack", this.name);
     fs.ensureDirSync(terraStackDir);
