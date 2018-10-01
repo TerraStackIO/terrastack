@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+var program = require("commander");
+var init = require("../component/index");
+
+program
+  .arguments("<name>")
+  .option("-t, --tag <tag>", "Which tag (version) to set for package")
+  .option("-d, --description <description>", "Brief description for package")
+  .action(function(name, options) {
+    init(name, options.tag, options.description);
+  });
+
+program.parse(process.argv);

@@ -8,6 +8,7 @@
     "commander": "^2.18.0",
     "fs-extra": "^7.0.0",
     "lodash": "^4.17.11",
+    "mustache": "^3.0.0",
     "recursive-copy": "^2.0.9",
     "winston": "^3.1.0"
   }
