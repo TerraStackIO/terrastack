@@ -26,4 +26,23 @@ program.command("destroy").action(function(options) {
   })();
 });
 
+program.command("list").action(function(options) {
+  const stack = require(process.cwd() + "/stack.js");
+
+  (async () => {
+    const components = stack
+      .list()
+      .map(component => `* ${component.name}`)
+      .join("\n");
+
+    console.log(
+      `
+Stack: ${stack.name}
+
+${components}
+`.trim()
+    );
+  })();
+});
+
 program.parse(process.argv);

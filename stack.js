@@ -95,6 +95,11 @@ class Stack {
     }
   }
 
+  list() {
+    this.resolve();
+    return this.executionOrder;
+  }
+
   async refresh(workingDir) {
     const obj = spawnSync(`terraform output -json`, {
       timeout: 0,
