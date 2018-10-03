@@ -35,16 +35,43 @@ const parseAndRender = () => {
 
   const template = `
 const path = require("path");
+
 /**
-@typedef PropertiesHash
-@type {object}
-@description {{description}}
+* @typedef InputProperties
+* @type {object}
+* @description {{description}}
 {{#variables}}
 {{=<% %>=}}
-@property {<% type %>} <% property %> - <% value.description %>
+* @property {<% type %>} <% property %> - <% value.description %>
 <%={{ }}=%>
 {{/variables}}
 */
+
+/**
+ * OptionsCallback to configure the component input.
+ * @callback optionsCallback
+ * @param {object} bindings
+ * @returns {InputProperties} inputs object for the component
+ */
+
+class Component {
+
+  /**
+   * Initialize the component
+   * @param {string} name - Unique name for the component
+   * @param {object} bindings - Define dependencies for this component. Will be passed as argument to the optionsCallback
+   * @param {optionsCallback} optionsCallback - Configure the component via the return value of this callback
+   */
+  constructor(name, bindings, optionsCallback) {
+    this.name = name;
+    this.optionsCallback = optionsCallback;
+    this.bindings = bindings;
+    this.sourceDir = path.join(__dirname, "../..");
+    this.version = 1
+  }
+}
+
+module.exports = Component;
 `.trim();
 
   return Mustache.render(template, view);
