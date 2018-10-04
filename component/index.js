@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require("fs-extra");
-const componentCode = require("./component-skeleton");
+const componentCode = require("./component");
 const packageDefaults = require("./package");
 
 const initComponent = (name, version, description) => {

@@ -1,0 +1,37 @@
+const path = require("path");
+
+/**
+* @typedef InputProperties
+* @type {object}
+{{#variables}}
+{{=<% %>=}}
+* @property {<% type %>} <% property %> - <% description %>
+<%={{ }}=%>
+{{/variables}}
+*/
+
+/**
+ * inputCallback to configure the component input.
+ * @callback inputCallback
+ * @param {object} bindings
+ * @returns {InputProperties} inputs object for the component
+ */
+
+class Component {
+
+  /**
+   * Initialize the component
+   * @param {string} name - Unique name for the component
+   * @param {object} bindings - Define dependencies for this component. Will be passed as argument to the optionsCallback
+   * @param {inputCallback} inputCallback - Configure the component via the return value of this callback
+   */
+  constructor(name, bindings, inputCallback) {
+    this.name = name;
+    this.inputCallback = inputCallback;
+    this.bindings = bindings;
+    this.sourceDir = path.join(__dirname, "../..");
+    this.version = 1
+  }
+}
+
+module.exports = Component;
