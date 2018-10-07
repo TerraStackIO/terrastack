@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+var program = require("commander");
+const stack = require(process.cwd() + "/stack.js");
+
+const list = () => {
+  const components = stack
+    .list()
+    .map(component => `* ${component.name}`)
+    .join("\n");
+  const template = `
+Stack: ${stack.name}
+
+${components}
+    `.trim();
+
+  console.log(template);
+};
+
+program
+  .arguments("")
+  .action(list)
+  .parse(process.argv);
+
+if (!program.args.length) list();

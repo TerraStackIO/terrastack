@@ -26,4 +26,6 @@ program.command("destroy").action(function(options) {
   })();
 });
 
+program.command("list", "Get info about the stack");
+
 program.parse(process.argv);
