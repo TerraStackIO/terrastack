@@ -1,0 +1,11 @@
+{
+  "name": "foo-module",
+  "version": "1.0.0",
+  "description": "description",
+  "main": ".terrastack/component/index.js",
+  "license": "MPL-2.0",
+  "private": false,
+  "terrastack": {
+    "version": 1
+  }
+}
