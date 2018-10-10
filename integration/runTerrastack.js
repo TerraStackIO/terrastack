@@ -5,7 +5,7 @@
 const { sync } = require("execa");
 const path = require("path");
 
-const TERRASTACK_PATH = path.resolve(__dirname, "../../bin/terrastack");
+const TERRASTACK_PATH = path.resolve(__dirname, "../bin/terrastack");
 
 const runTerrastack = (dir, args) => {
   const result = sync(TERRASTACK_PATH, args || [], {

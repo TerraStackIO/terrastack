@@ -1,10 +1,19 @@
+const fs = require("fs-extra");
+const os = require("os");
 const path = require("path");
 const { runTerrastack } = require("../runTerrastack");
 
 describe("Component Init", () => {
+  const dir = path.resolve(__dirname, "..", "component-init");
+  const workDir = path.resolve(os.tmpdir(), "component-init");
+
+  beforeEach(() => {
+    fs.removeSync(path.resolve(workDir, "*"));
+    fs.copySync(dir, workDir);
+  });
+
   it("generates a Terrastack index.js file", () => {
-    const dir = path.resolve(__dirname, "..", "component-init");
-    const result = runTerrastack(dir, [
+    const result = runTerrastack(workDir, [
       "component",
       "init",
       "-t",
@@ -14,16 +23,12 @@ describe("Component Init", () => {
       "foo-module"
     ]);
 
-    console.log(result);
-    // expect(extractSummary(stderr).summary).toMatchSnapshot();
+    const generatedIndexContent = fs
+      .readFileSync(
+        path.resolve(workDir, ".terrastack", "component", "index.js")
+      )
+      .toString();
 
-    // expect(status).toBe(1);
-    // expect(stderr).toMatch(
-    //   /ReferenceError: thisIsARuntimeError is not defined/,
-    // );
-    // expect(stderr).toMatch(/> 10 \| thisIsARuntimeError\(\);/);
-    // expect(stderr).toMatch(
-    //   /\s+at\s(?:.+?)\s\(__tests__\/runtime_error.test\.js/,
-    // );
+    expect(generatedIndexContent).toMatchSnapshot();
   });
 });
