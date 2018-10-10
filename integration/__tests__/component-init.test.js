@@ -3,7 +3,7 @@ const os = require("os");
 const path = require("path");
 const { runTerrastack } = require("../runTerrastack");
 
-describe("Component Init", () => {
+describe("CLI Component Init", () => {
   const dir = path.resolve(__dirname, "..", "component-init");
   const workDir = path.resolve(os.tmpdir(), "component-init");
 

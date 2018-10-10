@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Component Init generates a Terrastack index.js file 1`] = `
+exports[`CLI Component Init generates a Terrastack index.js file 1`] = `
 "const path = require(\\"path\\");
 
 /**
@@ -46,7 +46,7 @@ module.exports = Component;
 "
 `;
 
-exports[`Component Init generates a package.json file 1`] = `
+exports[`CLI Component Init generates a package.json file 1`] = `
 "{
   \\"name\\": \\"foo-module\\",
   \\"version\\": \\"1.0.0\\",
