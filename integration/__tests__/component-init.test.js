@@ -31,4 +31,22 @@ describe("Component Init", () => {
 
     expect(generatedIndexContent).toMatchSnapshot();
   });
+
+  it("generates a package.json file", () => {
+    const result = runTerrastack(workDir, [
+      "component",
+      "init",
+      "-t",
+      "1.0.0",
+      "-d",
+      "description",
+      "foo-module"
+    ]);
+
+    const generatedFileContent = fs
+      .readFileSync(path.resolve(workDir, "package.json"))
+      .toString();
+
+    expect(generatedFileContent).toMatchSnapshot();
+  });
 });

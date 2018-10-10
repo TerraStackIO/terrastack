@@ -45,3 +45,17 @@ class Component {
 module.exports = Component;
 "
 `;
+
+exports[`Component Init generates a package.json file 1`] = `
+"{
+  \\"name\\": \\"foo-module\\",
+  \\"version\\": \\"1.0.0\\",
+  \\"description\\": \\"description\\",
+  \\"main\\": \\".terrastack/component/index.js\\",
+  \\"license\\": \\"MPL-2.0\\",
+  \\"private\\": false,
+  \\"terrastack\\": {
+    \\"version\\": 1
+  }
+}"
+`;
