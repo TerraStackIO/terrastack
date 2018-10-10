@@ -23,6 +23,8 @@ describe("Component Init", () => {
       "foo-module"
     ]);
 
+    console.log(result);
+
     const generatedIndexContent = fs
       .readFileSync(
         path.resolve(workDir, ".terrastack", "component", "index.js")
