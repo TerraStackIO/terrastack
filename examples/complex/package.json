@@ -1,7 +1,7 @@
 {
-  "name": "terrastack-example-simple",
+  "name": "terrastack-example-complex",
   "version": "1.0.0",
-  "description": "A simple example to demonstrate the usage of Terrastack",
+  "description": "A complex example to demonstrate the usage of Terrastack",
   "main": "stack.js",
   "author": "Sebastian Korfmann",
   "license": "MPL-2.0",
