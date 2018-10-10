@@ -64,7 +64,6 @@ const parseAndRender = () => {
       return ` - ${text}`;
     },
     type: function() {
-      console.log(this.key);
       return (
         typeMap(this.value.type, defaultValue(this.value.default)) || "String"
       );

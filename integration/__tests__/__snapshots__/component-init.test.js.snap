@@ -59,3 +59,10 @@ exports[`CLI Component Init generates a package.json file 1`] = `
   }
 }"
 `;
+
+exports[`CLI Component Init prints status messages on stdout 1`] = `
+"Starting to init component \\"foo-module\\" in version 1.0.0
+Writing .terrastack/component/index.js
+Writing package.json
+Finished!"
+`;

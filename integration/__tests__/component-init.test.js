@@ -49,4 +49,46 @@ describe("CLI Component Init", () => {
 
     expect(generatedFileContent).toMatchSnapshot();
   });
+
+  it("prints status messages on stdout", () => {
+    const result = runTerrastack(workDir, [
+      "component",
+      "init",
+      "-t",
+      "1.0.0",
+      "-d",
+      "description",
+      "foo-module"
+    ]);
+
+    expect(result.stdout).toMatchSnapshot();
+  });
+
+  it("does not print errors on stderr", () => {
+    const result = runTerrastack(workDir, [
+      "component",
+      "init",
+      "-t",
+      "1.0.0",
+      "-d",
+      "description",
+      "foo-module"
+    ]);
+
+    expect(result.stderr).toHaveLength(0);
+  });
+
+  it("exits with 0", () => {
+    const result = runTerrastack(workDir, [
+      "component",
+      "init",
+      "-t",
+      "1.0.0",
+      "-d",
+      "description",
+      "foo-module"
+    ]);
+
+    expect(result.code).toEqual(0);
+  });
 });
