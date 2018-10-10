@@ -6,10 +6,16 @@ exports[`Component Init generates a Terrastack index.js file 1`] = `
 /**
 * @typedef InputProperties
 * @type {object}
-* @property {undefined} foo - undefined. Default: undefined
-* @property {string} [foo_with_default=\\"bar\\"] - undefined. Default: \\"bar\\"
-* @property {Array} foo_list - undefined. Default: undefined
-* @property {String} foo_map - undefined. Default: undefined
+* @property {string} foo
+* @property {string} foo_with_description - bar.
+* @property {Array} foo_list
+* @property {Object.<string, (string|number)>} foo_map
+* @property {string} [foo_with_default_string=\\"bar\\"] - Default: \\"bar\\"
+* @property {Array} [foo_default_list=[]] - Default: []
+* @property {Object.<string, (string|number)>} [foo_default_map={}] - Default: {}
+* @property {boolean} [foo_default_boolean=true] - Default: true
+* @property {number} [foo_default_integer=1] - Default: 1
+* @property {string} [foo_with_default_string_and_description=\\"bar\\"] - foo_bar. Default: \\"bar\\"
 */
 
 /**

@@ -5,7 +5,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test-update-snapshot": "jest --updateSnapshot"
   },
   "dependencies": {
     "commander": "^2.18.0",

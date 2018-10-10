@@ -7,12 +7,16 @@ const template = require("fs-extra")
 Mustache.escape = e => e;
 
 const typeMap = function(type, defaultValue) {
-  const mapping = { list: "Array", object: "Object.<string, (string|number)>" };
-
+  const mapping = {
+    list: "Array",
+    object: "Object.<string, (string|number)>",
+    map: "Object.<string, (string|number)>"
+  };
   if (type == "String" || type === undefined) {
     if (Array.isArray(defaultValue)) return "Array";
+    if (type === undefined && defaultValue === undefined) return "string";
     const assumedType = typeof defaultValue;
-    return mapping[assumedType] || assumedType;
+    return mapping[assumedType] || assumedType.toLocaleLowerCase();
   } else {
     return mapping[type];
   }
@@ -21,6 +25,15 @@ const typeMap = function(type, defaultValue) {
 const defaultValue = value => {
   if (typeof value !== "object") return value;
   return Array.isArray(value) && value.length == 0 ? value : value[0];
+};
+
+const defaultText = value => {
+  if (value === undefined) return "";
+  return `Default: ${JSON.stringify(defaultValue(value))}`;
+};
+
+const descriptionText = value => {
+  return value === undefined ? "" : `${value}.`;
 };
 
 const parseAndRender = () => {
@@ -40,9 +53,15 @@ const parseAndRender = () => {
   const view = {
     variables: [].concat(...variables),
     description: function() {
-      return `${this.value.description}. Default: ${JSON.stringify(
-        defaultValue(this.value.default)
-      )}`;
+      const text = [
+        descriptionText(this.value.description),
+        defaultText(this.value.default)
+      ]
+        .filter(Boolean)
+        .join(" ");
+
+      if (text.length === 0) return "";
+      return ` - ${text}`;
     },
     type: function() {
       console.log(this.key);
