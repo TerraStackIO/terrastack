@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CLI Component Init generates a Terrastack index.js file 1`] = `
+"const path = require(\\"path\\");
+
+/**
+* @typedef InputProperties
+* @type {object}
+* @property {string} foo
+* @property {string} foo_with_description - bar.
+* @property {Array} foo_list
+* @property {Object.<string, (string|number)>} foo_map
+* @property {string} [foo_with_default_string=\\"bar\\"] - Default: \\"bar\\"
+* @property {Array} [foo_default_list=[]] - Default: []
+* @property {Object.<string, (string|number)>} [foo_default_map={}] - Default: {}
+* @property {boolean} [foo_default_boolean=true] - Default: true
+* @property {number} [foo_default_integer=1] - Default: 1
+* @property {string} [foo_with_default_string_and_description=\\"bar\\"] - foo_bar. Default: \\"bar\\"
+*/
+
+/**
+ * inputCallback to configure the component input.
+ * @callback inputCallback
+ * @param {object} bindings
+ * @returns {InputProperties} inputs object for the component
+ */
+
+class Component {
+
+  /**
+   * Initialize the component
+   * @param {string} name - Unique name for the component
+   * @param {object} bindings - Define dependencies for this component. Will be passed as argument to the optionsCallback
+   * @param {inputCallback} inputCallback - Configure the component via the return value of this callback
+   */
+  constructor(name, bindings, inputCallback) {
+    this.name = name;
+    this.inputCallback = inputCallback;
+    this.bindings = bindings;
+    this.sourceDir = path.join(__dirname, \\"../..\\");
+    this.version = 1
+  }
+}
+
+module.exports = Component;
+"
+`;
+
+exports[`CLI Component Init generates a package.json file 1`] = `
+"{
+  \\"name\\": \\"foo-module\\",
+  \\"version\\": \\"1.0.0\\",
+  \\"description\\": \\"description\\",
+  \\"main\\": \\".terrastack/component/index.js\\",
+  \\"license\\": \\"MPL-2.0\\",
+  \\"private\\": false,
+  \\"terrastack\\": {
+    \\"version\\": 1
+  }
+}"
+`;
+
+exports[`CLI Component Init prints status messages on stdout 1`] = `
+"Starting to init component \\"foo-module\\" in version 1.0.0
+Writing .terrastack/component/index.js
+Writing package.json
+Finished!"
+`;
