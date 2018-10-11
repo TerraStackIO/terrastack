@@ -9,7 +9,6 @@
     "test-update-snapshot": "jest --updateSnapshot"
   },
   "dependencies": {
-    "commander": "^2.18.0",
     "fs-extra": "^7.0.0",
     "lodash": "^4.17.11",
     "mustache": "^3.0.0",

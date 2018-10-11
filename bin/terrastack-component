@@ -1,7 +1,0 @@
-#!/usr/bin/env node
-
-var program = require("commander");
-
-program.command("init <name>", "Init a new component from a Terraform module");
-
-program.parse(process.argv);
