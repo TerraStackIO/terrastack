@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "TerraStack",
   "main": "index.js",
-  "license": "MIT",
+  "license": "MPL-2.0",
   "scripts": {
     "test": "jest",
     "test-update-snapshot": "jest --updateSnapshot"
@@ -19,5 +19,11 @@
   "devDependencies": {
     "execa": "^1.0.0",
     "jest": "^23.6.0"
-  }
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "bugs": "https://github.com/terrastackio/terrastack/issues",
+  "homepage": "https://terrastack.io",
+  "repository": "terrastackio/terrastack"
 }
