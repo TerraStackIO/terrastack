@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Stack applies a simple stack 1`] = `
+Array [
+  "",
+  "aws_internet_gateway.this",
+  "aws_route.public_internet_gateway",
+  "aws_route_table.private",
+  "aws_route_table.public",
+  "aws_route_table_association.private[0]",
+  "aws_route_table_association.private[1]",
+  "aws_route_table_association.private[2]",
+  "aws_route_table_association.public[0]",
+  "aws_route_table_association.public[1]",
+  "aws_route_table_association.public[2]",
+  "aws_subnet.private[0]",
+  "aws_subnet.private[1]",
+  "aws_subnet.private[2]",
+  "aws_subnet.public[0]",
+  "aws_subnet.public[1]",
+  "aws_subnet.public[2]",
+  "aws_vpc.this",
+]
+`;

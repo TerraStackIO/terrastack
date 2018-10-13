@@ -12,7 +12,7 @@ const provider = require("./config/provider");
 
 const simpleStack = new Stack("simple", { backend, provider });
 
-const network = new Network("network", {
+const network = new Network("network", {}, dependencies => ({
   name: "simple-example",
   cidr: "10.0.0.0/16",
   azs: ["eu-central-1a", "eu-central-1b", "eu-central-1c"],
@@ -31,7 +31,8 @@ const network = new Network("network", {
   vpc_tags: {
     Name: "vpc-name"
   }
-});
+}));
+
 simpleStack.add(network);
 
 module.exports = simpleStack;

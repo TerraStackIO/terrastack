@@ -2,7 +2,7 @@
   "name": "terrastack",
   "version": "0.1.0",
   "description": "TerraStack",
-  "main": "index.js",
+  "main": "src/index.js",
   "license": "MPL-2.0",
   "scripts": {
     "test": "jest",
@@ -11,7 +11,6 @@
   "dependencies": {
     "fs-extra": "^7.0.0",
     "lodash": "^4.17.11",
-    "mustache": "^3.0.0",
     "recursive-copy": "^2.0.9",
     "winston": "^3.1.0"
   },

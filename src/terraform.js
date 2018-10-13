@@ -56,6 +56,17 @@ class Terraform {
     );
   }
 
+  async state(callbacks) {
+    await this._exec("state list").then(
+      stdout => {
+        callbacks.success(stdout);
+      },
+      (code, _stdout, _stderr) => {
+        callbacks.failed(stdout);
+      }
+    );
+  }
+
   async apply(callbacks) {
     callbacks.start();
     await this._exec("apply -auto-approve -input=false").then(
