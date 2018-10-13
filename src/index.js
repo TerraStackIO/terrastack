@@ -7,9 +7,11 @@
 const { Stack } = require("./stack");
 const { Provider } = require("./provider");
 const { Backend } = require("./backend");
+const { plan } = require("./run");
 
 module.exports = {
   Stack,
   Provider,
-  Backend
+  Backend,
+  plan
 };
