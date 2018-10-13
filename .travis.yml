@@ -5,6 +5,7 @@ before_script:
   - cd /tmp/terraform && unzip terraform.zip && rm terraform.zip
   - chmod 755 /tmp/terraform/terraform
   - export PATH=$PATH:/tmp/terraform
+  - cd $TRAVIS_BUILD_DIR
 env:
   global:
     - secure: cFpkCNh0aZmWRloD9asqrr02iPNngyvph4WGVvRVuvoJ5v08s0YbcVObgdlpELhMjxdzXgeuGtMBzfNWKOHZSJSJy9gp07/C7POz8h0mCOfcTc4rlxs85P9g2KUozqP0KSL7GSI4daRfQZf65fYrC0M+bYrZBgSuOLaGuxqJpTUt4GB/NYbU0Odeo7X7CrepK/wRKx20loO8M1uh4sRcHHTfMIqhpl5X+VetYII1hZL3jBNR/3bmLtcSnZ/R6jfjh6WdqU4k+z1bZsOvp0RHFGzT6xH1WwjBmKP6800r6mUuDbLVopkywcSfwWYUEwfMIrpeMa9q6sqa01jnLy5AtfPha+1rFEzDrXaBqasXX24aPKzoF75nb/Rg2nwKgUB6VXXQEp5aKkZn2ryxWWvhJQG6F45CoaLnYRWuBIbVaU8OILClDhnZB47Gwz47uXpiNnhkX6ay2lASE3p3DDKpOxQQacNG9KoXjEH30JmDQDp7rqseKyM9PlH4i4lY2Ivsb0SRATSIH5wdKzXvLVzW0K8pcsxhMj3Hr4+RcHpQ52093zKKoOgSM473DnF3gaXLj7kisGx8G2eBp8ijGqtnXw8okoQKrjiZBchRsWIuO8NXb/DXGHiBW26Hp0ymr52Z3lGOTNXL9ybMmuRbMTSm3dW45bAUYfGzGTr0kZOk3Q8=
