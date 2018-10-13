@@ -1,7 +1,7 @@
 language: node_js
 before_script:
   - mkdir -p /tmp/terraform
-  - wget https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip -O /tmp/terraform.zip
+  - wget https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip -O /tmp/terraform/terraform.zip
   - cd /tmp/terraform && unzip terraform.zip && rm terraform.zip
   - chmod 755 /tmp/terraform/terraform
   - export PATH=$PATH:/tmp/terraform
