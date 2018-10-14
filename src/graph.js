@@ -1,10 +1,8 @@
 // Sort items in a graph using a topological sort into chunks
 
 const Component = require("./component");
-
 const graphSimpleSequencer = require("graph-simple-sequencer");
-const TrailDuck = require("trailduck").default;
-console.log(TrailDuck);
+
 const exec = a => {
   return new Promise((resolve, reject) => {
     console.log(`task: ${a.foo()}`);
@@ -31,6 +29,7 @@ console.log({ safe, chunks });
 (async () => {
   for (let chunk of chunks) {
     // Running tasks in parallel
+    console.log("---------");
     await Promise.all(chunk.map(task => exec(task)));
   }
 })();
