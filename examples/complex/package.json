@@ -8,7 +8,7 @@
   "private": false,
   "dependencies": {
     "@terrastack/terraform-aws-ec2-instance": "^1.0.0",
-    "@terrastack/terraform-aws-vpc": "^1.0.0",
+    "@terrastack/terraform-aws-vpc": "^1.0.1",
     "terrastack": "file:../../"
   }
 }

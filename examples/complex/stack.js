@@ -41,7 +41,7 @@ const ec2instances = [];
 
 for (const a of [1, 2, 3]) {
   ec2instances.push(
-    new EC2Instance(`ec2-${a}`, { network }, bindings => ({
+    new EC2Instance(`ec2-${a}`, { network, ec2 }, bindings => ({
       name: "complex-ec2",
       ami: "ami-0f5dbc86dd9cbf7a8",
       instance_type: "t3.micro",
@@ -69,5 +69,10 @@ const provider = new Provider({
 const complexStack = new Stack("complex", { backend, provider });
 
 complexStack.add(network, ec2, ...ec2instances);
+
+// TODO: remove this again
+complexStack.resolve();
+
+console.log(complexStack.executionChunks);
 
 module.exports = complexStack;

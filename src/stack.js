@@ -13,6 +13,7 @@ class Stack {
     this.config = config;
     this.components = [];
     this.executionOrder = [];
+    this.executionChunks = [[]];
     this.terraStackDir = path.join(process.cwd(), ".terrastack", name);
   }
 
@@ -27,11 +28,29 @@ class Stack {
       let countBefore = availableComponents.length;
 
       availableComponents = availableComponents.filter(component => {
-        if (
-          _.isEmpty(component.bindings) ||
-          this._allBindingsAlreadyConsumed(component)
-        ) {
+        if (_.isEmpty(component.bindings)) {
+          // Components without binding, belongs always to layer 0
+          component._layer = 0;
+          this.executionChunks[0].push(component);
           this.executionOrder.push(component);
+
+          return false;
+        } else if (this._allBindingsAlreadyConsumed(component)) {
+          this.executionOrder.push(component);
+
+          let layers = Object.values(component.bindings).map(
+            component => component._layer
+          );
+
+          let parentLayer = Math.max(...layers);
+          component._layer = parentLayer + 1;
+
+          if (this.executionChunks[component._layer] == undefined) {
+            this.executionChunks[component._layer] = [];
+          }
+
+          this.executionChunks[component._layer].push(component);
+
           return false;
         } else {
           return true;
