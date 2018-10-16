@@ -7,11 +7,11 @@
 const { Stack } = require("./stack");
 const { Provider } = require("./provider");
 const { Backend } = require("./backend");
-const { plan } = require("./run");
+const Terrastack = require("./terrastack");
 
 module.exports = {
   Stack,
   Provider,
   Backend,
-  plan
+  Terrastack
 };

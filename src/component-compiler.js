@@ -7,6 +7,7 @@
 const fs = require("fs-extra");
 const recursiveCopy = require("recursive-copy");
 const path = require("path");
+const eventbus = require("./eventbus");
 
 class ComponentCompiler {
   constructor(component, config, baseDir) {
@@ -21,6 +22,7 @@ class ComponentCompiler {
     this._writeConfig();
     if (!skipConfiguration) this._writeInput();
     await this._copySource();
+    eventbus.emit("component:compile", this.component, this.componentDir);
 
     return this.componentDir;
   }
@@ -47,17 +49,10 @@ class ComponentCompiler {
     await recursiveCopy(this.component.sourceDir, this.componentDir, {
       filter: ["**/*", "!.terrastack"],
       overwrite: true
-    })
-      .then(function(results) {
-        console.info("Copied " + results.length + " files");
-      })
-      .catch(function(error) {
-        console.error("Copy failed: " + error);
-      });
+    });
   }
 
   _compileConfig() {
-    console.log({ config: this.config });
     const data = Object.keys(this.config).map(key =>
       this.config[key].compile(
         path.join(path.basename(this.baseDir), this.component.name)

@@ -5,6 +5,7 @@
  */
 
 const path = require("path");
+const ComponentProxy = require("./component-proxy");
 const _ = require("lodash");
 
 class Stack {
@@ -17,7 +18,9 @@ class Stack {
   }
 
   add(...component) {
-    this.components.push(...component);
+    this.components.push(
+      ...component.map(c => new ComponentProxy(c, this.terraStackDir))
+    );
   }
 
   resolve() {
