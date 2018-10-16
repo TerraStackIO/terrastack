@@ -8,7 +8,6 @@
   "private": false,
   "dependencies": {
     "@terrastack/terraform-aws-vpc": "^1.0.1",
-    "chalk": "^2.4.1",
     "terrastack": "file:../../"
   }
 }
