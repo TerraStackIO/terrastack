@@ -5,7 +5,7 @@
  */
 
 const path = require("path");
-const ComponentProxy = require("./component-proxy");
+const ComponentProxy = require("./internals/component-proxy");
 const _ = require("lodash");
 
 class Stack {
@@ -61,4 +61,4 @@ class Stack {
   }
 }
 
-module.exports = { Stack };
+module.exports = Stack;

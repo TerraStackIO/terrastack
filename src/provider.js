@@ -14,4 +14,4 @@ class Provider {
   }
 }
 
-module.exports = { Provider };
+module.exports = Provider;

@@ -1,6 +1,6 @@
-const ComponentCompiler = require("./component-compiler");
-const { Terraform } = require("./terraform");
-const eventbus = require("./eventbus");
+const ComponentCompiler = require("./internals/component-compiler");
+const Terraform = require("./internals/terraform");
+const eventbus = require("./internals/eventbus");
 
 class Terrastack {
   constructor(stack) {
