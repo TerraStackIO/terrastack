@@ -30,37 +30,27 @@ class Stack {
 
   async plan() {
     this.resolve();
-
+    console.log(this.executionOrder);
     for (const component of this.executionOrder) {
-      const callbacks = {
+      const callbacks = context => ({
         start: () => {
-          console.log(`${component.name} started`);
+          console.log(`${context}: ${component.name} started`);
         },
         success: () => {
-          console.log(`${component.name} success`);
+          console.log(`${context}: ${component.name} success`);
         },
         failed: () => {
-          console.log(`${component.name} failed`);
+          console.log(`${context}: ${component.name} failed`);
         }
-      };
+      });
       const workingDir = await this._compile(component);
       const terraform = new Terraform(workingDir);
 
-      await terraform.init(callbacks);
-
-      await terraform.plan(
-        Object.assign(callbacks, {
-          success: changed => {
-            if (changed)
-              throw `${
-                component.name
-              } changed. Cannot proceed planing. Apply first.`;
-          }
-        })
-      );
+      await terraform.init(callbacks("init"));
+      await terraform.plan(callbacks("plan"));
 
       await terraform.output(
-        Object.assign(callbacks, {
+        Object.assign(callbacks("output"), {
           success: output => {
             component.outputs = this._unwrapOutputs(output);
           }
@@ -104,6 +94,28 @@ class Stack {
   list() {
     this.resolve();
     return this.executionOrder;
+  }
+
+  async state(componentName) {
+    const component = _.find(this.components, c => {
+      return c.name == componentName;
+    });
+
+    const callbacks = {
+      start: () => {},
+      success: output => {
+        console.log(`${output}`);
+      },
+      failed: () => {
+        console.log(`${component.name} failed`);
+      }
+    };
+
+    const workingDir = await this._compile(component);
+    const terraform = new Terraform(workingDir);
+    await terraform.init(callbacks);
+    await terraform.state(callbacks);
+    this.executionOrder;
   }
 
   async refresh(workingDir) {
@@ -180,7 +192,7 @@ class Stack {
     if (!skipConfiguration) {
       fs.writeFileSync(
         path.join(componentDir, "terrastack.auto.tfvars"),
-        JSON.stringify(component.optionsCallback(component.bindings), null, 2)
+        JSON.stringify(component.inputCallback(component.bindings), null, 2)
       );
     }
 

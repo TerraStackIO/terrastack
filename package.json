@@ -2,17 +2,15 @@
   "name": "terrastack",
   "version": "0.1.0",
   "description": "TerraStack",
-  "main": "index.js",
+  "main": "src/index.js",
   "license": "MPL-2.0",
   "scripts": {
     "test": "jest",
     "test-update-snapshot": "jest --updateSnapshot"
   },
   "dependencies": {
-    "commander": "^2.18.0",
     "fs-extra": "^7.0.0",
     "lodash": "^4.17.11",
-    "mustache": "^3.0.0",
     "recursive-copy": "^2.0.9",
     "winston": "^3.1.0"
   },
@@ -20,8 +18,10 @@
     "execa": "^1.0.0",
     "jest": "^23.6.0"
   },
-  "files": [
-    "/bin",
-    "/component"
-  ]
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "bugs": "https://github.com/terrastackio/terrastack/issues",
+  "homepage": "https://terrastack.io",
+  "repository": "terrastackio/terrastack"
 }

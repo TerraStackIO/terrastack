@@ -7,7 +7,7 @@
   "license": "MPL-2.0",
   "private": false,
   "dependencies": {
-    "@terrastack/terraform-aws-vpc": "^1.0.0",
+    "@terrastack/terraform-aws-vpc": "^1.0.1",
     "terrastack": "file:../../"
   }
 }
