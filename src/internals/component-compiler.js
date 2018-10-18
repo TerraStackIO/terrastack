@@ -9,58 +9,45 @@ const recursiveCopy = require("recursive-copy");
 const path = require("path");
 const eventbus = require("./eventbus");
 
-class ComponentCompiler {
-  constructor(component, config, baseDir) {
-    this.component = component;
-    this.config = config;
-    this.baseDir = baseDir;
-    this.componentDir = path.join(this.baseDir, this.component.name);
-  }
+const writeConfig = (component, config) => {
+  fs.writeFileSync(
+    path.join(component.workingDir, "terrastack.tf"),
+    JSON.stringify(compileConfig(component, config), null, 2)
+  );
+};
 
-  async compile(skipConfiguration = false) {
-    fs.ensureDirSync(this.componentDir);
-    this._writeConfig();
-    if (!skipConfiguration) this._writeInput();
-    await this._copySource();
-    eventbus.emit("component:compile", this.component, this.componentDir);
+const compileConfig = (component, config) => {
+  const data = Object.keys(config).map(key =>
+    config[key].compile(component.workingDir)
+  );
+  return Object.assign({}, ...data);
+};
 
-    return this.componentDir;
-  }
+const writeInput = component => {
+  fs.writeFileSync(
+    path.join(component.workingDir, "terrastack.auto.tfvars"),
+    JSON.stringify(component.inputCallback(component.bindings), null, 2)
+  );
+};
 
-  _writeConfig() {
-    fs.writeFileSync(
-      path.join(this.componentDir, "terrastack.tf"),
-      JSON.stringify(this._compileConfig(), null, 2)
-    );
-  }
+const copySource = async component => {
+  await recursiveCopy(component.sourceDir, component.workingDir, {
+    filter: ["**/*", "!.terrastack"],
+    overwrite: true
+  });
+};
 
-  _writeInput() {
-    fs.writeFileSync(
-      path.join(this.componentDir, "terrastack.auto.tfvars"),
-      JSON.stringify(
-        this.component.inputCallback(this.component.bindings),
-        null,
-        2
-      )
-    );
-  }
+const compile = async (component, config) => {
+  fs.ensureDirSync(component.workingDir);
+  writeConfig(component, config);
+  writeInput(component);
+  await copySource(component);
+  eventbus.emit("component:compile", component);
+};
 
-  async _copySource() {
-    await recursiveCopy(this.component.sourceDir, this.componentDir, {
-      filter: ["**/*", "!.terrastack"],
-      overwrite: true
-    });
-  }
+const asyncCompile = (component, config) => {
+  return () =>
+    new Promise((resolve, reject) => resolve(compile(component, config)));
+};
 
-  _compileConfig() {
-    const data = Object.keys(this.config).map(key =>
-      this.config[key].compile(
-        path.join(path.basename(this.baseDir), this.component.name)
-      )
-    );
-
-    return Object.assign({}, ...data);
-  }
-}
-
-module.exports = ComponentCompiler;
+module.exports = { compile, asyncCompile };

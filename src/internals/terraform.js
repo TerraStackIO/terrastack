@@ -19,6 +19,36 @@ class Terraform {
     );
   }
 
+  asyncInit() {
+    return this.asyncCommand("init");
+  }
+
+  asyncPlan() {
+    return this.asyncCommand("plan");
+  }
+
+  asyncState() {
+    return this.asyncCommand("state");
+  }
+
+  asyncApply() {
+    return this.asyncCommand("apply");
+  }
+
+  asyncOutput() {
+    return this.asyncCommand("output");
+  }
+
+  asyncDestroy() {
+    return this.asyncCommand("destroy");
+  }
+
+  asyncCommand(method) {
+    return async () => {
+      await new Promise((resolve, reject) => resolve(this[method]()));
+    };
+  }
+
   async plan() {
     eventbus.emit("component:plan:start", this.component);
     await this._exec("plan -input=false -lock=false -detailed-exitcode").then(
@@ -32,6 +62,7 @@ class Terraform {
         } else {
           eventbus.emit("component:plan:failed", this.component);
           eventbus.emit("error", this.component);
+          throw "failed";
         }
       }
     );
@@ -51,7 +82,17 @@ class Terraform {
 
   async output() {
     eventbus.emit("component:output:start", this.component);
-    await this._exec("output -json").then(...this._defaultCallbacks("output"));
+    await this._exec("output -json").then(
+      output => {
+        this.component.output = JSON.parse(output);
+        eventbus.emit(`component:output:success`, this.component);
+      },
+      code => {
+        eventbus.emit(`component:output:failed`, this.component, code);
+        eventbus.emit("error", this.component);
+        throw "failed";
+      }
+    );
   }
 
   async destroy() {
@@ -70,7 +111,10 @@ class Terraform {
         cwd: this.component.workingDir
       });
 
+      let stdout = "";
+
       proc.stdout.on("data", output => {
+        stdout += output.toString();
         eventbus.emit("output:stdout", this.component, output.toString());
       });
 
@@ -82,7 +126,7 @@ class Terraform {
         if (code !== 0) {
           reject(code);
         } else {
-          resolve();
+          resolve(stdout);
         }
       });
     });
@@ -96,6 +140,7 @@ class Terraform {
       code => {
         eventbus.emit(`component:${command}:failed`, this.component, code);
         eventbus.emit("error", this.component);
+        throw "failed";
       }
     ];
   }
