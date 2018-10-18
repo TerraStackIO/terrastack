@@ -5,7 +5,7 @@
  */
 
 const path = require("path");
-const ComponentProxy = require("./internals/component-proxy");
+const refineComponent = require("./internals/component-refiner");
 const ComponentResolver = require("./internals/component-resolver");
 
 class Stack {
@@ -18,7 +18,7 @@ class Stack {
 
   add(...component) {
     this.components.push(
-      ...component.map(c => new ComponentProxy(c, this.terraStackDir))
+      ...component.map(c => refineComponent(c, this.terraStackDir))
     );
   }
 

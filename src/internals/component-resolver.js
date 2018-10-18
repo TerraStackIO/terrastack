@@ -9,17 +9,10 @@ const _ = require("lodash");
 class ComponentResolver {
   constructor(components) {
     this.components = components;
-    this.componentLayers = {};
-    this.executionChunks = null;
+    this.executionChunks = [[]];
   }
 
   resolve() {
-    if (this.executionChunks != null) {
-      return this.executionChunks;
-    }
-
-    this.executionChunks = [[]];
-
     let remainingComponents = this.components.slice(0);
 
     while (remainingComponents.length > 0) {
@@ -28,24 +21,16 @@ class ComponentResolver {
       remainingComponents = remainingComponents.filter(component => {
         if (_.isEmpty(component.bindings)) {
           // Components without binding, belongs always to layer 0
-          this.executionChunks[0].push(component);
-          this.componentLayers[component.name] = 0;
+          this._addToLayer(0, component);
 
           return false;
         } else if (this._allBindingsAlreadyConsumed(component)) {
           // We assume here that all bindings got the `_layer` variable set in the previous loops
           let parentLayers = Object.values(component.bindings).map(
-            component => this.componentLayers[component.name]
+            c => c._layer
           );
 
-          let layer = Math.max(...parentLayers) + 1;
-          this.componentLayers[component.name] = layer;
-
-          if (this.executionChunks[layer] == undefined) {
-            this.executionChunks[layer] = [];
-          }
-
-          this.executionChunks[layer].push(component);
+          this._addToLayer(Math.max(...parentLayers) + 1, component);
 
           return false;
         } else {
@@ -65,12 +50,20 @@ class ComponentResolver {
 
   _allBindingsAlreadyConsumed(component) {
     return Object.values(component.bindings).every(binding => {
-      if (this.componentLayers[binding.name] != undefined) {
+      if (binding._layer != undefined) {
         return true;
       } else {
         return false;
       }
     });
+  }
+
+  _addToLayer(layer, component) {
+    component._layer = layer;
+    if (this.executionChunks[layer] == undefined) {
+      this.executionChunks[layer] = [];
+    }
+    this.executionChunks[layer].push(component);
   }
 }
 
