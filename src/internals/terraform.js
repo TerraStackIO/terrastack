@@ -101,4 +101,4 @@ class Terraform {
   }
 }
 
-module.exports = { Terraform };
+module.exports = Terraform;

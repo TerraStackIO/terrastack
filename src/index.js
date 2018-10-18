@@ -4,9 +4,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-const { Stack } = require("./stack");
-const { Provider } = require("./provider");
-const { Backend } = require("./backend");
+const Stack = require("./stack");
+const Provider = require("./provider");
+const Backend = require("./backend");
 const Terrastack = require("./terrastack");
 
 module.exports = {
