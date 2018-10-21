@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "TerraStack",
   "main": "src/index.js",
+  "types": "src/index.d.ts",
   "license": "MPL-2.0",
   "scripts": {
     "test": "jest",
