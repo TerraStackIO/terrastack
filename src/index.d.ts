@@ -34,5 +34,7 @@ declare class BaseComponent<C extends object> {
 }
 
 declare namespace BaseComponent {
-
+  export declare interface KeyValuePair {
+    [key: string]: string | number;
+  }
 }
