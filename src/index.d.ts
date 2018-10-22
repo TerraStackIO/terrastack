@@ -7,7 +7,7 @@ export declare class Stack {
    * Initialize a stack
    *
    * @param name - Unique name for the stack
-   * @param config - Configuration for the satck
+   * @param config - Configuration for the stack
    */
   constructor(name: string, config: object);
 
@@ -17,6 +17,43 @@ export declare class Stack {
    * @param components - One or more components
    */
   add(...components: object);
+}
+
+export declare class Provider {
+  /**
+   * Initialize a Provider
+   *
+   * @param config - Configuration for the Provider
+   */
+  constructor(config: object);
+}
+
+export declare class Backend {
+  /**
+   * Initialize a Provider
+   *
+   * @param config - Configuration for the Backend
+   */
+  constructor(config: object);
+}
+
+export declare class Terrastack {
+  /**
+   * Initialize Terrastack
+   *
+   * @param stack - Stack to orchestrate
+   */
+  constructor(stack: Stack);
+
+  /**
+   * Plan the stack
+   */
+  async plan();
+
+  /**
+   * Apply the stack
+   */
+  async apply();
 }
 
 export declare class BaseComponent<C extends object> {

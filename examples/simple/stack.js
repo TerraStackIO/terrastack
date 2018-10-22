@@ -4,6 +4,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+// @ts-check
+
 const { Stack } = require("terrastack");
 const Network = require("@terrastack/terraform-aws-vpc");
 
