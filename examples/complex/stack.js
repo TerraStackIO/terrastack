@@ -35,8 +35,10 @@ const ec2 = new EC2Instance(`ec2`).bind({ network }).configure(bindings => ({
   name: "complex-ec2",
   ami: "ami-0f5dbc86dd9cbf7a8",
   instance_type: "t3.micro",
-  subnet_id: bindings.network.outputs.public_subnets[0],
-  vpc_security_group_ids: [bindings.network.outputs.default_security_group_id]
+  subnet_id: bindings.network.output.public_subnets.value[0],
+  vpc_security_group_ids: [
+    bindings.network.output.default_security_group_id.value
+  ]
 }));
 
 const ec2instances = [];
@@ -47,9 +49,9 @@ for (const a of [1, 2, 3]) {
       name: "complex-ec2",
       ami: "ami-0f5dbc86dd9cbf7a8",
       instance_type: "t3.micro",
-      subnet_id: bindings.network.outputs.public_subnets[0],
+      subnet_id: bindings.network.output.public_subnets.value[0],
       vpc_security_group_ids: [
-        bindings.network.outputs.default_security_group_id
+        bindings.network.output.default_security_group_id.value
       ]
     }))
   );

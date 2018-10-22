@@ -48,12 +48,12 @@ export declare class Terrastack {
   /**
    * Plan the stack
    */
-  async plan();
+  plan();
 
   /**
    * Apply the stack
    */
-  async apply();
+  apply();
 }
 
 export declare class BaseComponent<C extends object> {

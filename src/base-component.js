@@ -1,3 +1,5 @@
+const path = require("path");
+
 class BaseComponent {
   constructor(name) {
     this.name = name;
@@ -11,6 +13,11 @@ class BaseComponent {
   bind(components) {
     this.bindings = components;
     return this;
+  }
+
+  setWorkingDir(baseDir) {
+    this.baseDir = baseDir;
+    this.workingDir = path.join(baseDir, this.name);
   }
 }
 
