@@ -2,13 +2,29 @@
 
 export as namespace Terrastack;
 
-export = BaseComponent;
+export declare class Stack {
+  /**
+   * Initialize a stack
+   *
+   * @param name - Unique name for the stack
+   * @param config - Configuration for the satck
+   */
+  constructor(name: string, config: object);
 
-declare class BaseComponent<C extends object> {
+  /**
+   * Add components to the stack
+   *
+   * @param components - One or more components
+   */
+  add(...components: object);
+}
+
+export declare class BaseComponent<C extends object> {
   /**
    * Initialize the component
    *
    * @param name - Unique name for the component
+   * {link}
    */
   constructor(name: string);
 
@@ -33,7 +49,7 @@ declare class BaseComponent<C extends object> {
   configure(input: (bindings?: any) => C): this;
 }
 
-declare namespace BaseComponent {
+namespace BaseComponent {
   export declare interface KeyValuePair {
     [key: string]: string | number;
   }
