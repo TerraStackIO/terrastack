@@ -2,15 +2,15 @@
 # yarn lockfile v1
 
 
-"@terrastack/terraform-aws-ec2-instance@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@terrastack/terraform-aws-ec2-instance/-/terraform-aws-ec2-instance-1.0.1.tgz#c107b82b9255f99be2fcc46b60fa31944f6d1189"
-  integrity sha512-WOaqA379F2OFnJUvNn6PwXJRTJjEOSzI3yQQr09er+rMp9INHpw9uPgjC2I9OCfqkeGoQChl6udRc2QrOp8shw==
+"@terrastack/terraform-aws-ec2-instance@^2.0.1":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@terrastack/terraform-aws-ec2-instance/-/terraform-aws-ec2-instance-2.0.2.tgz#a14c0191428e9bc314cae3a5d7ceef64d0e8eab8"
+  integrity sha512-LMzkQVDISNVo0YTbpAMFb3P6Vf5lD0D5Vj40gFNKGRjE968TciWy1/aeqR9XFXC+4O1+DTJ3JzjBZSzmG1G72g==
 
-"@terrastack/terraform-aws-vpc@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@terrastack/terraform-aws-vpc/-/terraform-aws-vpc-1.0.1.tgz#647d8ad6b322434fcd88d54aa9236e9ee2a92a98"
-  integrity sha512-syB/ed6Anbqf/uJDQzZX0syIxEPEJ9uefDIjd5pElMu0o8d0/hBJRskJJn2PvB9zOjbUUvrv28P4FEtgrpR4Nw==
+"@terrastack/terraform-aws-vpc@^2.0.1":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@terrastack/terraform-aws-vpc/-/terraform-aws-vpc-2.0.5.tgz#8bbe8fe5d00621fa34b9a9930b023513c1159a2a"
+  integrity sha512-BYr+dtTfk8w0aUviNwEPM1x2NBwAkkeMt4JeklJA3MyFnnV/6vyVr9L+CHsSBpa8ADg9jwj7TUsDpHh5pVY/5g==
 
 array-differ@^1.0.0:
   version "1.0.0"
@@ -198,12 +198,12 @@ minimatch@^3.0.0, minimatch@^3.0.4:
 
 minimist@0.0.8:
   version "0.0.8"
-  resolved "http://registry.npmjs.org/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
   integrity sha1-hX/Kv8M5fSYluCKCYuhqp6ARsF0=
 
 mkdirp@^0.5.1:
   version "0.5.1"
-  resolved "http://registry.npmjs.org/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
+  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   dependencies:
     minimist "0.0.8"
@@ -288,7 +288,7 @@ slash@^1.0.0:
   integrity sha1-xB8vbDn8FtHNF61LXYlhFK5HDVU=
 
 "terrastack@file:../..":
-  version "0.1.0"
+  version "0.2.0"
   dependencies:
     eventemitter2 "^5.0.1"
     fs-extra "^7.0.0"

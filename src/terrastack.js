@@ -28,7 +28,8 @@ class Terrastack {
       await this.runTaskSequence([
         asyncCompile(component, this.stack.config),
         terraform.asyncInit(),
-        terraform.asyncPlan()
+        terraform.asyncPlan(),
+        terraform.asyncOutput()
       ]);
     });
   }

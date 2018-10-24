@@ -5,7 +5,6 @@
  */
 
 const path = require("path");
-const refineComponent = require("./internals/component-refiner");
 const ComponentResolver = require("./internals/component-resolver");
 
 class Stack {
@@ -18,7 +17,10 @@ class Stack {
 
   add(...component) {
     this.components.push(
-      ...component.map(c => refineComponent(c, this.terraStackDir))
+      ...component.map(c => {
+        c.setWorkingDir(this.terraStackDir);
+        return c;
+      })
     );
   }
 
