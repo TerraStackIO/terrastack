@@ -7,6 +7,7 @@
 const Terraform = require("./internals/terraform");
 const eventbus = require("./internals/eventbus");
 const { asyncCompile } = require("./internals/component-compiler");
+const { _ } = require("lodash");
 
 class Terrastack {
   constructor(stack) {
@@ -48,8 +49,27 @@ class Terrastack {
     });
   }
 
+  async destroy() {
+    eventbus.emit("stack:destroy", this.stack);
+    this.eachComponentReversed(async component => {
+      eventbus.emit("component:before", component);
+      const terraform = new Terraform(component);
+      await this.runTaskSequence([
+        asyncCompile(component, this.stack.config),
+        terraform.asyncInit(),
+        terraform.asyncDestroy()
+      ]);
+    });
+  }
+
   async eachComponent(applyFunction) {
     for (const chunk of this.componentChunks) {
+      await Promise.all(chunk.map(component => applyFunction(component)));
+    }
+  }
+
+  async eachComponentReversed(applyFunction) {
+    for (const chunk of _.reverse(this.componentChunks)) {
       await Promise.all(chunk.map(component => applyFunction(component)));
     }
   }

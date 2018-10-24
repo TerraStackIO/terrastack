@@ -84,7 +84,7 @@ class Terraform {
     eventbus.emit("component:output:start", this.component);
     await this._exec("output -json").then(
       output => {
-        this.component.output = JSON.parse(output);
+        this.component.setOutput(JSON.parse(output));
         eventbus.emit(`component:output:success`, this.component);
       },
       code => {
