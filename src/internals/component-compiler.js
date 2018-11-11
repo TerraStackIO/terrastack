@@ -38,7 +38,7 @@ const copySource = async component => {
 };
 
 const compile = async (component, config) => {
-  fs.ensureDirSync(component.workingDir);
+  fs.emptyDirSync(component.workingDir);
   writeConfig(component, config);
   writeInput(component);
   await copySource(component);

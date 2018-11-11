@@ -1,9 +1,12 @@
 const path = require("path");
 
 class BaseComponent {
-  constructor(name) {
+  constructor(name, options = {}) {
     this.name = name;
     this.output = wrap({});
+    this.state = "constructed";
+    this.options = Object.assign({ destroy: false }, options);
+    this.bindings = {};
   }
 
   configure(input) {

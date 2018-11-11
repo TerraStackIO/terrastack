@@ -19,6 +19,26 @@ class Terrastack {
       // update the component somehow. There should be a better way than events.
       // I think we're loosing the reference to the original objects in stack.resolve()
     });
+
+    this.validate();
+  }
+
+  validate() {
+    let deadComponents = [];
+    for (const chunk of this.componentChunks) {
+      for (const component of chunk) {
+        if (component.options.destroy) {
+          deadComponents.push(component);
+        } else {
+          if (
+            _.intersection(Object.values(component.bindings), deadComponents)
+              .length > 0
+          ) {
+            throw "Found a component marked for destroy with dependencies";
+          }
+        }
+      }
+    }
   }
 
   async plan() {
@@ -38,14 +58,28 @@ class Terrastack {
   async apply() {
     eventbus.emit("stack:apply", this.stack);
     this.eachComponent(async component => {
-      eventbus.emit("component:before", component);
-      const terraform = new Terraform(component);
-      await this.runTaskSequence([
-        asyncCompile(component, this.stack.config),
-        terraform.asyncInit(),
-        terraform.asyncApply(),
-        terraform.asyncOutput()
-      ]);
+      if (!component.options.destroy) {
+        eventbus.emit("component:before", component);
+        const terraform = new Terraform(component);
+        await this.runTaskSequence([
+          asyncCompile(component, this.stack.config),
+          terraform.asyncInit(),
+          terraform.asyncApply(),
+          terraform.asyncOutput()
+        ]);
+      }
+    });
+
+    this.eachComponentReversed(async component => {
+      if (component.options.destroy) {
+        eventbus.emit("component:before", component);
+        const terraform = new Terraform(component);
+        await this.runTaskSequence([
+          asyncCompile(component, this.stack.config),
+          terraform.asyncInit(),
+          terraform.asyncDestroy()
+        ]);
+      }
     });
   }
 
@@ -69,7 +103,7 @@ class Terrastack {
   }
 
   async eachComponentReversed(applyFunction) {
-    for (const chunk of _.reverse(this.componentChunks)) {
+    for (const chunk of this.componentChunks.slice().reverse()) {
       await Promise.all(chunk.map(component => applyFunction(component)));
     }
   }
