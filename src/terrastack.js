@@ -43,6 +43,9 @@ class Terrastack {
 
   async plan() {
     eventbus.emit("stack:plan", this.stack);
+    for (const component of this.stack.components) {
+      eventbus.emit("component:added", component);
+    }
     this.eachComponent(async component => {
       eventbus.emit("component:before", component);
       const terraform = new Terraform(component);
