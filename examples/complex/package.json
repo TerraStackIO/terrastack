@@ -7,8 +7,8 @@
   "license": "MPL-2.0",
   "private": false,
   "dependencies": {
-    "@terrastack/terraform-aws-ec2-instance": "^1.0.0",
-    "@terrastack/terraform-aws-vpc": "^1.0.0",
-    "terrastack": "file:../../"
+    "@terrastack/terraform-aws-ec2-instance": "^2.0.1",
+    "@terrastack/terraform-aws-vpc": "^2.0.1",
+    "terrastack": "file:../.."
   }
 }

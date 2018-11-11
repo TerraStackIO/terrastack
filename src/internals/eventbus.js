@@ -4,14 +4,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-class Provider {
-  constructor(terraformJSON) {
-    this.terraformJSON = terraformJSON;
-  }
+const { EventEmitter2 } = require("eventemitter2");
 
-  compile() {
-    return this.terraformJSON;
-  }
-}
+const eventbus = new EventEmitter2({
+  wildcard: true,
+  delimiter: ":",
+  newListener: false
+});
 
-module.exports = Provider;
+module.exports = eventbus;

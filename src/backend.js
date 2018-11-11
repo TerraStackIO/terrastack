@@ -20,4 +20,4 @@ class Backend {
   }
 }
 
-module.exports = { Backend };
+module.exports = Backend;

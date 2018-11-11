@@ -10,6 +10,12 @@ const os = require("os");
 const path = require("path");
 const { runNode, addTerrastack } = require("../utils");
 
+const runTerrastack = () => {
+  const Terrastack = require("terrastack");
+  const stack = require(process.cwd() + "/stack.js");
+  new Terrastack(stack).init();
+};
+
 describe("Stack", () => {
   const rootDir = path.resolve(__dirname, "..", "..");
   const dir = path.resolve(rootDir, "examples", "simple");
@@ -24,12 +30,7 @@ describe("Stack", () => {
   });
 
   it("applies a simple stack", () => {
-    const apply = runNode(
-      workDir,
-      `
-        require(process.cwd() + "/stack.js").apply()
-      `
-    );
+    const apply = runNode(workDir, `${runTerrastack.toString()}()`);
 
     const state = runNode(
       workDir,

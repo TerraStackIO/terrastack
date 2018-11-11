@@ -4,11 +4,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+// @ts-check
+
 const { Stack, Backend, Provider } = require("terrastack");
 const Network = require("@terrastack/terraform-aws-vpc");
 const EC2Instance = require("@terrastack/terraform-aws-ec2-instance");
 
-const network = new Network("network", {}, () => ({
+const network = new Network("network").configure(() => ({
   name: "complex-example",
   cidr: "10.0.0.0/16",
   azs: ["eu-central-1a", "eu-central-1b", "eu-central-1c"],
@@ -29,25 +31,27 @@ const network = new Network("network", {}, () => ({
   }
 }));
 
-const ec2 = new EC2Instance(`ec2`, { network }, bindings => ({
+const ec2 = new EC2Instance(`ec2`).bind({ network }).configure(bindings => ({
   name: "complex-ec2",
   ami: "ami-0f5dbc86dd9cbf7a8",
   instance_type: "t3.micro",
-  subnet_id: bindings.network.outputs.public_subnets[0],
-  vpc_security_group_ids: [bindings.network.outputs.default_security_group_id]
+  subnet_id: bindings.network.output.public_subnets.value[0],
+  vpc_security_group_ids: [
+    bindings.network.output.default_security_group_id.value
+  ]
 }));
 
 const ec2instances = [];
 
 for (const a of [1, 2, 3]) {
   ec2instances.push(
-    new EC2Instance(`ec2-${a}`, { network }, bindings => ({
+    new EC2Instance(`ec2-${a}`).bind({ network }).configure(bindings => ({
       name: "complex-ec2",
       ami: "ami-0f5dbc86dd9cbf7a8",
       instance_type: "t3.micro",
-      subnet_id: bindings.network.outputs.public_subnets[0],
+      subnet_id: bindings.network.output.public_subnets.value[0],
       vpc_security_group_ids: [
-        bindings.network.outputs.default_security_group_id
+        bindings.network.output.default_security_group_id.value
       ]
     }))
   );
