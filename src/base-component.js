@@ -3,6 +3,7 @@ const path = require("path");
 class BaseComponent {
   constructor(name) {
     this.name = name;
+    this.output = wrap({});
   }
 
   configure(input) {
@@ -19,6 +20,18 @@ class BaseComponent {
     this.baseDir = baseDir;
     this.workingDir = path.join(baseDir, this.name);
   }
+
+  setOutput(output) {
+    this.output = wrap(output);
+  }
 }
+
+const wrap = obj => {
+  return new Proxy(obj, {
+    get(target, propKey) {
+      return target[propKey] || { value: "<computed>" };
+    }
+  });
+};
 
 module.exports = BaseComponent;
