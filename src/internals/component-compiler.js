@@ -9,16 +9,16 @@ const recursiveCopy = require("recursive-copy");
 const path = require("path");
 const eventbus = require("./eventbus");
 
-const writeConfig = (component, config) => {
+const writeConfig = (stack, component) => {
   fs.writeFileSync(
     path.join(component.workingDir, "terrastack.tf"),
-    JSON.stringify(compileConfig(component, config), null, 2)
+    JSON.stringify(compileConfig(stack, component), null, 2)
   );
 };
 
-const compileConfig = (component, config) => {
-  const data = Object.keys(config).map(key =>
-    config[key].compile(component.workingDir)
+const compileConfig = (stack, component) => {
+  const data = Object.keys(stack.config).map(key =>
+    stack.config[key].compile(`${stack.name}/${component.name}`)
   );
   return Object.assign({}, ...data);
 };
@@ -37,17 +37,17 @@ const copySource = async component => {
   });
 };
 
-const compile = async (component, config) => {
+const compile = async (stack, component) => {
   fs.emptyDirSync(component.workingDir);
-  writeConfig(component, config);
+  writeConfig(stack, component);
   writeInput(component);
   await copySource(component);
   eventbus.emit("component:compile", component);
 };
 
-const asyncCompile = (component, config) => {
+const asyncCompile = (stack, component) => {
   return () =>
-    new Promise((resolve, reject) => resolve(compile(component, config)));
+    new Promise((resolve, reject) => resolve(compile(stack, component)));
 };
 
 module.exports = { compile, asyncCompile };

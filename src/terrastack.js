@@ -47,7 +47,7 @@ class Terrastack {
       eventbus.emit("component:before", component);
       const terraform = new Terraform(component);
       await this.runTaskSequence([
-        asyncCompile(component, this.stack.config),
+        asyncCompile(this.stack, component),
         terraform.asyncInit(),
         terraform.asyncPlan(),
         terraform.asyncOutput()
@@ -62,7 +62,7 @@ class Terrastack {
         eventbus.emit("component:before", component);
         const terraform = new Terraform(component);
         await this.runTaskSequence([
-          asyncCompile(component, this.stack.config),
+          asyncCompile(this.stack, component),
           terraform.asyncInit(),
           terraform.asyncApply(),
           terraform.asyncOutput()
@@ -75,7 +75,7 @@ class Terrastack {
         eventbus.emit("component:before", component);
         const terraform = new Terraform(component);
         await this.runTaskSequence([
-          asyncCompile(component, this.stack.config),
+          asyncCompile(this.stack, component),
           terraform.asyncInit(),
           terraform.asyncDestroy()
         ]);
@@ -89,7 +89,7 @@ class Terrastack {
       eventbus.emit("component:before", component);
       const terraform = new Terraform(component);
       await this.runTaskSequence([
-        asyncCompile(component, this.stack.config),
+        asyncCompile(this.stack, component),
         terraform.asyncInit(),
         terraform.asyncDestroy()
       ]);
