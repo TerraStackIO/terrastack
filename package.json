@@ -1,6 +1,6 @@
 {
   "name": "terrastack",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "TerraStack",
   "main": "src/index.js",
   "types": "src/index.d.ts",
@@ -10,10 +10,8 @@
     "test-update-snapshot": "jest --updateSnapshot"
   },
   "dependencies": {
-    "eventemitter2": "^5.0.1",
     "fs-extra": "^7.0.0",
-    "lodash": "^4.17.11",
-    "recursive-copy": "^2.0.9"
+    "lodash": "^4.17.11"
   },
   "devDependencies": {
     "execa": "^1.0.0",
