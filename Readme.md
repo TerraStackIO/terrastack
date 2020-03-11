@@ -52,3 +52,7 @@ However, it's possible to generate full bindings for a given Terraform provider 
 - [ ] Publish easy consumable packages for providers and open source modules
 - [ ] Better Terraform integration
 - [ ] More examples
+
+## Author
+
+- [Sebastian Korfmann](https://skorfmann.com) - Cloud Solutions Architect based in Hamburg. [Available for hire](https://twitter.com/skorfmann/status/1226874389389545472) starting from Q2/2020
