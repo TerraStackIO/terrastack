@@ -51,6 +51,7 @@ However, it's possible to generate full bindings for a given Terraform provider 
 - [ ] Converting HCL to Terrastack resources
 - [ ] Publish easy consumable packages for providers and open source modules
 - [ ] Better Terraform integration
+- [ ] Unit / Integration test examples
 - [ ] More examples
 
 ## Author
