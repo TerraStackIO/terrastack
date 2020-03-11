@@ -26,7 +26,7 @@ With that, we're able to generate packages for any given Terraform provider in t
 
 ## Current Status
 
-In the current state, this is mostly a prototype. It demonstrates that it's possible and quite useful to leverage the CDK. Interfaces and Apis will certainly change and there are still some problems to solve. 
+In the current state, this is mostly a prototype. It demonstrates that it's possible and quite useful to leverage the CDK. Interfaces and Apis will certainly change and there are still some problems to solve.
 
 However, it's possible to generate full bindings for a given Terraform provider (tested with AWS and Google Cloud so far).
 
