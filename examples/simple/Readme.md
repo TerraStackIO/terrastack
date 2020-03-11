@@ -1,8 +1,10 @@
 # Simple Typescript Example
 
-This demonstrates a simple example based on Typescript. For conevnience, the current Terraform AWS provider schema is commited under [./.schema/aws-provider.json](./.schema/aws-provider.json)
+This demonstrates a simple example based on Typescript. For convenience, the current Terraform AWS provider schema is commited under [./.schema/aws-provider.json](./.schema/aws-provider.json)
 
 ## Getting started
+
+Make sure to run `yarn && yarn build` in the [root directory](../..) of the project
 
 ```bash
 yarn
