@@ -1,0 +1,36 @@
+{
+  "name": "terrastack",
+  "version": "0.15.0",
+  "description": "Polyglot Terraform supercharged by the Cloud Development Kit (CDK)",
+  "private": true,
+  "keywords": [
+    "terrastack",
+    "terraform",
+    "cdk",
+    "cloud",
+    "aws",
+    "azure",
+    "gcp"
+  ],
+  "scripts": {
+    "bump": "tools/bump.sh",
+    "build": "lerna run build",
+    "test": "lerna run test",
+    "package": "lerna run package",
+    "release": "tools/release.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "packages/@terrastack/*"
+    ]
+  },
+  "devDependencies": {
+    "changelog-parser": "^2.8.0",
+    "jsii-release": "^0.1.5",
+    "lerna": "^3.20.2",
+    "standard-version": "^7.1.0"
+  }
+}

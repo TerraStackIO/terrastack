@@ -1,0 +1,27 @@
+{
+    "provider": {
+        "aws": {
+            "region": "eu-central-1",
+            "version": "~\u003e 2.0"
+        }
+    },
+    "resource": {
+        "aws_s3_bucket": {
+            "b": {
+                "acl": "private",
+                "bucket": "my-tf-test-bucket",
+                "logging": {
+                    "target_bucket": "${aws_s3_bucket.log_bucket.id}",
+                    "target_prefix": "log/"
+                },
+                "tags": {
+                    "Foo": "bar"
+                }
+            },
+            "log_bucket": {
+                "acl": "log-delivery-write",
+                "bucket": "my-tf-log-bucket"
+            }
+        }
+    }
+}

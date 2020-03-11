@@ -1,0 +1,91 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "e7bf9c551cf45151280babd251ef4362c472f6ad7f299fa306abd279488053d6"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.7"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "attrs": {
+            "hashes": [
+                "sha256:08a96c641c3a74e44eb59afb61a24f2cb9f4d7188748e76ba4bb5edfa3cb7d1c",
+                "sha256:f7b7ce16570fe9965acd6d30101a28f62fb4a7f9e926b3bbc9b61f8b04247e72"
+            ],
+            "version": "==19.3.0"
+        },
+        "aws-cdk-core": {
+            "hashes": [
+                "sha256:38af9bc1ab164e72806eabbb7f84b77c007d68f3aea869858092fb0331a75aed"
+            ],
+            "index": "pypi",
+            "version": "==1.27.0"
+        },
+        "aws-cdk.cx-api": {
+            "hashes": [
+                "sha256:8d527c479e77aff962810af8b5bd1f1dcddaa77c0310d080ea8608941c344bd9",
+                "sha256:cbe497d176f030c5c7dd76a7ac4dd3f160f82bf0d64dc3327d3a692d9f0f3e2e"
+            ],
+            "version": "==1.27.0"
+        },
+        "cattrs": {
+            "hashes": [
+                "sha256:616972ae3dfa6e623a40ad3cb845420e64942989152774ab055e5c2b2f89f997",
+                "sha256:b7ab5cf8ad127c42eefd01410c1c6e28569a45a255ea80ed968511873c433c7a"
+            ],
+            "version": "==1.0.0"
+        },
+        "jsii": {
+            "hashes": [
+                "sha256:1f1a0984b2106395b9efbea03c81fc1091c54c89915bc200ab313b4daba9851a",
+                "sha256:6933c08ecaba4932b465ea527b2237de4eedb702fa334884b8a5d66df0b52b02"
+            ],
+            "version": "==0.22.0"
+        },
+        "publication": {
+            "hashes": [
+                "sha256:0248885351febc11d8a1098d5c8e3ab2dabcf3e8c0c96db1e17ecd12b53afbe6",
+                "sha256:68416a0de76dddcdd2930d1c8ef853a743cc96c82416c4e4d3b5d901c6276dc4"
+            ],
+            "version": "==0.0.3"
+        },
+        "python-dateutil": {
+            "hashes": [
+                "sha256:73ebfe9dbf22e832286dafa60473e4cd239f8592f699aa5adaf10050e6e1823c",
+                "sha256:75bb3f31ea686f1197762692a9ee6a7550b59fc6ca3a1f4b5d7e32fb98e2da2a"
+            ],
+            "version": "==2.8.1"
+        },
+        "six": {
+            "hashes": [
+                "sha256:236bdbdce46e6e6a3d61a337c0f8b763ca1e8717c03b369e87a7ec7ce1319c0a",
+                "sha256:8f3cd2e254d8f793e7f3d6d9df77b92252b52637291d0f0da013c76ea2724b6c"
+            ],
+            "version": "==1.14.0"
+        },
+        "terrastack": {
+            "path": "./.packages/terrastack-0.15.0.tar.gz"
+        },
+        "terrastack-aws-provider": {
+            "path": "./.packages/terrastack_aws_provider-0.0.0.tar.gz"
+        },
+        "typing-extensions": {
+            "hashes": [
+                "sha256:091ecc894d5e908ac75209f10d5b4f118fbdb2eb1ede6a63544054bb1edb41f2",
+                "sha256:910f4656f54de5993ad9304959ce9bb903f90aadc7c67a0bef07e678014e892d",
+                "sha256:cf8b63fedea4d89bab840ecbb93e75578af28f76f66c35889bd7065f5af88575"
+            ],
+            "version": "==3.7.4.1"
+        }
+    },
+    "develop": {}
+}

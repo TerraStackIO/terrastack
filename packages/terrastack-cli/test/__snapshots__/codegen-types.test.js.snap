@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`structs has an optional map of strings 1`] = `
+"export interface TestType {
+    readonly tags?: {[k:string]: string};
+
+    readonly bool: {[k:string]: boolean};
+
+    readonly number: {[k:string]: number};
+
+    readonly numberSet: number[];
+
+}
+
+"
+`;
+
+exports[`structs has block type nested as single 1`] = `
+"export interface TestType {
+    readonly tags?: {[k:string]: string};
+
+    readonly s3Import?: TestTypeS3ImportProps;
+
+}
+
+export interface TestTypeS3ImportProps {
+    readonly create?: string;
+
+}
+
+"
+`;
+
+exports[`structs has block type nested in block type 1`] = `
+"export interface TestType {
+    readonly tags?: {[k:string]: string};
+
+    readonly s3Import?: TestTypeS3ImportProps;
+
+}
+
+export interface TestTypeS3ImportProps {
+    readonly create?: string;
+
+    readonly foo?: TestTypeS3ImportPropsFooProps;
+
+}
+
+export interface TestTypeS3ImportPropsFooProps {
+    readonly bar?: string;
+
+}
+
+"
+`;
+
+exports[`structs has empty block type nested as single 1`] = `
+"export interface TestType {
+    readonly tags?: {[k:string]: string};
+
+    readonly s3Import?: any;
+
+}
+
+"
+`;
+
+exports[`structs has list of complex nested objects 1`] = `
+"export interface TestTypeInstanceMarketOptionsProps {
+    readonly marketType: string;
+
+    readonly spotOptions: TestTypeInstanceMarketOptionsPropsSpotOptionsProps[];
+
+}
+
+export interface TestTypeInstanceMarketOptionsPropsSpotOptionsProps {
+    readonly blockDurationMinutes: number;
+
+}
+
+export interface TestType {
+    readonly instanceMarketOptions?: TestTypeInstanceMarketOptionsProps[];
+
+}
+
+"
+`;
+
+exports[`structs has primitive computed type 1`] = `
+"export interface TestType {
+}
+
+"
+`;
+
+exports[`structs has primitive optional computed type 1`] = `
+"export interface TestType {
+    readonly architecture?: string;
+
+}
+
+"
+`;
+
+exports[`structs has primitive optional types 1`] = `
+"export interface TestType {
+    readonly architecture?: string;
+
+}
+
+"
+`;
+
+exports[`structs has primitive types 1`] = `
+"export interface TestType {
+    readonly string: string;
+
+    readonly bool: boolean;
+
+    readonly number: number;
+
+}
+
+"
+`;

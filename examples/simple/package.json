@@ -1,0 +1,23 @@
+{
+  "name": "simple",
+  "version": "1.0.0",
+  "description": "Simple Terrastack Example",
+  "main": "stacks/simple.js",
+  "types": "stacks/simple.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "author": "Sebastian Korfmann",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@aws-cdk/aws-iam": "^1.27.0",
+    "@aws-cdk/core": "^1.27.0",
+    "@types/node": "^13.7.7",
+    "crypto": "^1.0.1",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "typescript": "^3.8.3",
+    "terrastack-cli": "file:../../packages/terrastack-cli"
+  }
+}

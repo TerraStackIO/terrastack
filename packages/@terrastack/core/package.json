@@ -1,0 +1,114 @@
+{
+  "name": "@terrastack/core",
+  "version": "0.15.0",
+  "description": "Polyglot Terraform supercharged by the Cloud Development Kit (CDK)",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "jsii",
+    "watch": "jsii -w",
+    "package": "jsii-pacmak",
+    "lint": "eslint . --ext .ts",
+    "test": "jest && yarn lint"
+  },
+  "author": "Sebastian Korfmann",
+  "license": "Apache-2.0",
+  "homepage": "https://terrastack.io",
+  "keywords": [
+    "terrastack",
+    "terraform",
+    "cdk",
+    "cloud",
+    "aws",
+    "azure",
+    "gcp"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TerraStackIO/terrastack.git",
+    "directory": "packages/terrastack"
+  },
+  "jsii": {
+    "outdir": "dist",
+    "versionFormat": "short",
+    "targets": {
+      "java": {
+        "package": "org.terrastack",
+        "maven": {
+          "groupId": "org.terrastack",
+          "artifactId": "terrastack"
+        }
+      },
+      "python": {
+        "distName": "terrastack",
+        "module": "terrastack"
+      },
+      "dotnet": {
+        "namespace": "Org.terrastack",
+        "packageId": "Org.terrastack"
+      }
+    }
+  },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+      "@typescript-eslint/no-explicit-any": 0,
+      "@typescript-eslint/explicit-function-return-type": 0,
+      "@typescript-eslint/no-use-before-define": 0,
+      "@typescript-eslint/interface-name-prefix": 0
+    },
+    "ignorePatterns": [
+      "node_modules",
+      "dist",
+      "coverage"
+    ]
+  },
+  "devDependencies": {
+    "@aws-cdk/core": "^1.27.0",
+    "@types/json-schema": "^7.0.4",
+    "@types/node": "^13.7.7",
+    "@types/yaml": "^1.2.0",
+    "@types/yargs": "^15.0.4",
+    "codemaker": "^1.0.0",
+    "crypto": "^1.0.1",
+    "eslint": "^6.8.0",
+    "fs": "^0.0.1-security",
+    "jest": "^25.1.0",
+    "jsii": "^0.22.0",
+    "jsii-pacmak": "^0.22.0",
+    "json-schema": "^0.2.5",
+    "json-schema-to-typescript": "^8.0.1",
+    "path": "^0.12.7",
+    "typescript": "^3.8.3",
+    "yaml": "^1.7.2",
+    "yargs": "^15.1.0"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "moduleFileExtensions": [
+      "js"
+    ]
+  },
+  "bundledDependencies": [
+    "yaml"
+  ],
+  "dependencies": {
+    "yaml": "^1.7.2"
+  },
+  "peerDependencies": {
+    "@aws-cdk/core": "^1.24.0",
+    "@aws-cdk/cx-api": "^1.24.0"
+  },
+  "stability": "experimental",
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "packages": [
+    "packages/*",
+    "packages/@terrastack/*"
+  ],
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "version": "0.15.0"
+}

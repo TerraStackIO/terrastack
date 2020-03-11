@@ -1,0 +1,12 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[packages]
+aws-cdk-core = "*"
+terrastack = {path = "./.packages/terrastack-0.15.0.tar.gz"}
+terrastack-aws-provider = {path = "./.packages/terrastack_aws_provider-0.0.0.tar.gz"}
+
+[requires]
+python_version = "3.7"

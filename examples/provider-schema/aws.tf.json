@@ -1,0 +1,10 @@
+{
+  "provider": {
+      "aws": {
+          "version": "2.52.0"
+      },
+      "google": {
+          "version": "3.11.0"
+      }
+  }
+}
