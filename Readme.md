@@ -6,6 +6,8 @@ This is made possible by the [Cloud Development Kit (CDK)](https://github.com/aw
 
 Applying it Terraform was inspired by the release of [cdk8s](https://github.com/awslabs/cdk8s), which also paved the way for rapid progress towards a working Terraform version.
 
+![terrastack](./images/terrastack.png)
+
 ## How does it work?
 
 Terrastack makes use of the following things: 
@@ -45,6 +47,7 @@ However, it's possible to generate full bindings for a given Terraform provider 
 - [ ] Modules
 - [ ] Dynamic blocks 
 - [ ] count / for each 
+- [ ] Assets
 - [ ] Converting HCL to Terrastack resources
 - [ ] Publish easy consumable packages for providers and open source modules
 - [ ] Better Terraform integration
