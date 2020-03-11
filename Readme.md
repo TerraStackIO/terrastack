@@ -37,6 +37,7 @@ However, it's possible to generate full bindings for a given Terraform provider 
 - [x] Reference resources within a stack
 - [x] Synthesize valid Terraform JSON which is plannable and applyable
 - [x] Leverage existing CDK packages which are not bound to cloudformation directly, such as global tagging or an IAM Policy builder 
+- [ ] Improve developer experience
 - [ ] Multiple Stacks with individual state
 - [ ] Input Variables
 - [ ] Outputs
