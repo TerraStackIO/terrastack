@@ -1,4 +1,10 @@
-# Terrastack - Polyglot Terraform supercharged by the CDK
+# Terrastack is now Terraform CDK
+
+This project is archived, but the idea of Terrastack lives on in the [Terraform CDK](https://github.com/hashicorp/terraform-cdk).
+
+---
+
+## Terrastack - Polyglot Terraform supercharged by the CDK
 
 Terrastack enables you to keep using Terraform as engine, while defining your resources in actual programming languages such as Typescript, Python, Java or C# - with more to come ([perhaps Ruby?](https://github.com/aws/jsii/issues/144)).
 
